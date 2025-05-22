@@ -32,11 +32,19 @@ RegisterNetEvent('policeradar:issueFine', function(targetId, speed, fine, plate)
     if isNPC then return end
 
     local xPlayer = ESX and ESX.GetPlayerFromId(targetId) or QBCore.Functions.GetPlayer(targetId)
-    if not xPlayer then return end
+    if not xPlayer then
+        if Config.Debug then
+            print("[Radar DEBUG] Kon speler niet vinden met ID: " .. tostring(targetId))
+        end
+        return
+    end
 
-        local bank = ESX and xPlayer.getAccount('bank').money or xPlayer.Functions.GetMoney("bank")
-        local cash = ESX and xPlayer.getMoney() or xPlayer.Functions.GetMoney("cash")
-        local playerName = GetPlayerName(targetId)
+    if Config.Debug then
+        print(string.format("[Radar DEBUG] Boete geven aan speler %s (ID %d) voor %d km/u, boete €%d", playerName, targetId, math.floor(speed), math.floor(fine)))
+    end
+
+    local bank = ESX and xPlayer.getAccount('bank').money or xPlayer.Functions.GetMoney("bank")
+    local cash = ESX and xPlayer.getMoney() or xPlayer.Functions.GetMoney("cash")
 
     if bank >= fine then
         if ESX then
@@ -51,7 +59,7 @@ RegisterNetEvent('policeradar:issueFine', function(targetId, speed, fine, plate)
         local remaining = fine - bank
         xPlayer.Functions.RemoveMoney("bank", bank, "speeding-ticket")
         xPlayer.Functions.RemoveMoney("cash", remaining, "speeding-ticket")
-        TriggerClientEvent('QBCore:Notify', targetId, "Je bent geflitst met " .. math.floor(speed) .. " km/u. Boete: €" .. fine .. "Betaald", "error")
+        TriggerClientEvent('QBCore:Notify', targetId, "Je bent geflitst met " .. math.floor(speed) .. " km/u. Boete: €" .. fine .. " Betaald met cash", "error")
     else
         local warningText = "⚠️ Je bent geflitst met " .. math.floor(speed) .. " km/u maar had niet genoeg geld! De volgende boete zal DUBBEL zijn!"
         if ESX then

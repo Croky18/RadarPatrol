@@ -1,7 +1,7 @@
 Config = {}
 
 -- Kies je framework: 'qbcore' of 'esx'
-Config.Framework = 'esx' -- pas dit aan naar 'esx' of 'qbcore'
+Config.Framework = 'qbcore' -- pas dit aan naar 'esx' of 'qbcore'
 
 -- Debug modus aan/uit (toont prints in F8 console)
 Config.Debug = false
@@ -15,5 +15,7 @@ Config.WhitelistedVehicles = {
     [`police`] = true,
     [`police2`] = true,
     [`police3`] = true,
-    [`fbi`] = true
+    [`fbi`] = true,
+    [`police4`] = true,  -- Optioneel, afhankelijk van je server
+    [`sheriff`] = true,
 }
