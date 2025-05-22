@@ -34,8 +34,9 @@ RegisterNetEvent('policeradar:issueFine', function(targetId, speed, fine, plate)
     local xPlayer = ESX and ESX.GetPlayerFromId(targetId) or QBCore.Functions.GetPlayer(targetId)
     if not xPlayer then return end
 
-    local bank = ESX and xPlayer.getAccount('bank').money or QBCore.Functions.GetMoney(xPlayer, "bank")
-    local cash = ESX and xPlayer.getMoney() or QBCore.Functions.GetMoney(xPlayer, "cash")
+        local bank = ESX and xPlayer.getAccount('bank').money or xPlayer.Functions.GetMoney("bank")
+        local cash = ESX and xPlayer.getMoney() or xPlayer.Functions.GetMoney("cash")
+        local playerName = GetPlayerName(targetId)
 
     if bank >= fine then
         if ESX then
