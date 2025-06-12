@@ -8,8 +8,8 @@ local ESX, QBCore = nil, nil
 
 CreateThread(function()
     if Config.Framework == 'esx' then
-        while ESX == nil do
-            TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
+        while not ESX do
+            ESX = exports['es_extended']:getSharedObject()
             Wait(100)
         end
     elseif Config.Framework == 'qbcore' then
