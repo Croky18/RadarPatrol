@@ -3,7 +3,9 @@ local ESX, QBCore = nil, nil
 if Config.Framework == 'qbcore' then
     QBCore = exports['qb-core']:GetCoreObject()
 elseif Config.Framework == 'esx' then
-    TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
+    if ESX == nil and exports['es_extended'] then
+        ESX = exports['es_extended']:getSharedObject()
+    end
 end
 
 RegisterNetEvent('policeradar:issueFine', function(targetId, speed, fine, plate)
